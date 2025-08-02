@@ -19,6 +19,7 @@ import lombok.Setter;
 @Setter
 public class OpenApiProperties {
 
+    private String title;
     private Github github;
     private String terms;
     private Contact contact;

@@ -32,7 +32,7 @@ public class OpenApiConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("School API - OpenAPI 3.0")
+                        .title(openApiProperties.getTitle())
                         .description("API gestion school, this API is a simple example of how "
                                 + "to use OpenAPI 3.0 with Spring Boot.\n"
                                 + "\nSome useful links:\n"
