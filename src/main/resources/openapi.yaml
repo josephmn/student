@@ -1,0 +1,384 @@
+openapi: 3.0.4
+info:
+  title: School API
+  version: 1.0.0
+  #  description: API para gestionar colegio
+  description: |-
+    API gestion school, this API is a simple example of how to use OpenAPI 3.0 with Spring Boot.
+
+    Some useful links:
+    - [Developer LinkedIn](https://www.linkedin.com)
+    - [Repository GitHub](https://github.com/josephmn/student/tree/main/src/main/resources/openapi.yaml)
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: josephcarlos.jcmn@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://localhost:8082
+tags:
+  - name: student
+    description: Operations about student
+paths:
+  /students:
+    get:
+      tags:
+        - student
+      summary: Get all student.
+      description: Get all student status.
+      operationId: getAllStudents
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseStudentDto'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    post:
+      tags:
+        - student
+      summary: Create student.
+      description: Create student in database.
+      operationId: createStudent
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestStudentDto'
+        required: true
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStudentDto'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /students/actives:
+    get:
+      tags:
+        - student
+      summary: Get all student actives.
+      description: Get all student status actives.
+      operationId: getAllStudentsActives
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseStudentDto'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /students/{id}:
+    get:
+      tags:
+        - student
+      summary: Get student by ID.
+      description: Get student by ID.
+      operationId: getStudentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of student
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStudentDto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - student
+      summary: Put student by ID.
+      description: Put student by ID.
+      operationId: updateStudentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of student
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestStudentDto'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStudentDto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      tags:
+        - student
+      summary: Delete student by ID.
+      description: Delete student by ID.
+      operationId: deleteStudentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id of student
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTO'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /students/findByName/{name}:
+    get:
+      tags:
+        - student
+      summary: Get list student by name.
+      description: Get list student by name.
+      operationId: getListStudentByName
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of student
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseStudentDto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /students/findByLastName/{lastName}:
+    get:
+      tags:
+        - student
+      summary: Get list student by last name.
+      description: Get list student by last name.
+      operationId: getListStudentByLastName
+      parameters:
+        - name: lastName
+          in: path
+          required: true
+          description: Last name of student
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseStudentDto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /students/updateByDocument/{document}:
+    put:
+      tags:
+        - student
+      summary: Put student by document.
+      description: Put student by document.
+      operationId: updateStudentByDocument
+      parameters:
+        - name: document
+          in: path
+          required: true
+          description: Document of student
+          schema:
+            type: string
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestStudentDto'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStudentDto'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    RequestStudentDto:
+      type: object
+      properties:
+        document:
+          type: string
+          example: 78653423
+        name:
+          type: string
+          example: Jhon
+        lastName:
+          type: string
+          example: James
+        status:
+          type: boolean
+          example: true
+        age:
+          type: integer
+          format: int32
+          example: 30
+
+    ResponseStudentDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        document:
+          type: string
+          example: 78653423
+        name:
+          type: string
+          example: Jhon
+        lastName:
+          type: string
+          example: James
+        status:
+          type: boolean
+          example: true
+        age:
+          type: integer
+          format: int32
+          example: 30
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 'XXX'
+        message:
+          type: string
+          example: 'Error message'
+      required:
+        - code
+        - message
+
+    ResponseDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 'XXX'
+        message:
+          type: string
+          example: 'Message response'
+      required:
+        - code
+        - message
