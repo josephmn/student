@@ -2,26 +2,31 @@ spring:
   application:
     name: student
     version: "@project.version@"
-  profiles:
-    active: dev
+  banner:
+    location: classpath:banner/banner-${SPRING_PROFILES_ACTIVE}.txt
   cloud:
     config:
-      uri: ${CONFIG_SERVER:http://localhost:8886}
+      uri: ${CONFIG_SERVER:http://localhost:8888}
     vault:
       enabled: true
-      host: ${VAULT_HOST:localhost}
-      port: ${VAULT_PORT:8200}
+      uri: ${VAULT_URI:http://localhost:8200}
       scheme: http
-      authentication: TOKEN
-      token: 00000000-0000-0000-0000-000000000000
+      authentication: APPROLE
+      app-role:
+        role-id: ${VAULT_ROLE_ID}
+        secret-id: ${VAULT_SECRET_ID}
       kv:
         enabled: true
-        application-name: student
         backend: secret
-        version: 2
   output:
     ansi:
       enabled: ALWAYS
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+    register-with-eureka: true
+    fetch-registry: true
 created:
   by: Joseph Magallanes
   email: josephcarlos.jcmn@gmail.com
